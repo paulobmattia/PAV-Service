@@ -1,0 +1,509 @@
+/* PAV Service — client.css */
+/* Requisitos: 2.1, 7.1, 7.3 */
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Body ── */
+body {
+  font-family: sans-serif;
+  background-color: #ffffff;
+  color: #111111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ── Header / Logo ── */
+header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 16px;
+}
+
+header img {
+  max-width: 80px;
+  height: auto;
+  display: block;
+}
+
+/* ── Main ── */
+main {
+  width: 100%;
+  max-width: 480px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+/* ── Entry Screen ── */
+#entry-screen {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+#entry-screen h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  color: #111111;
+}
+
+/* ── Name Input ── */
+#name-input {
+  width: 100%;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#name-input:focus {
+  border-color: #444444;
+}
+
+/* ── Name Submit Button (Entrar) ── */
+#name-submit {
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+#name-submit:hover {
+  opacity: 0.75;
+}
+
+/* ── Client Interface ── */
+#client-interface {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+/* ── User Greeting ── */
+#user-greeting {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111111;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* ── Options Container (Fieldset) ── */
+.options-container {
+  border: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.options-container:disabled {
+  opacity: 0.55;
+}
+
+.options-container:disabled .option-label {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ── Section Titles ── */
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 4px;
+  padding: 0;
+}
+
+/* ── Groups ── */
+.radio-group,
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+/* ── Option Labels as Cards ── */
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background-color: #f7f7f7;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #444444;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+  position: relative;
+}
+
+.option-label:hover {
+  background-color: #eeeeee;
+  color: #111111;
+}
+
+/* Custom indicator states when checked */
+.option-label:has(input:checked) {
+  background-color: #ffffff;
+  border-color: #000000;
+  color: #000000;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Hide default input but keep keyboard navigation accessible */
+.option-label input[type="radio"],
+.option-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Custom Radio Indicator */
+.custom-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cccccc;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  background-color: #ffffff;
+}
+
+.option-label:hover .custom-radio {
+  border-color: #888888;
+}
+
+.option-label input[type="radio"]:checked + .custom-radio {
+  border-color: #000000;
+}
+
+.option-label input[type="radio"]:checked + .custom-radio::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #000000;
+  border-radius: 50%;
+}
+
+/* Custom Checkbox Indicator */
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cccccc;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  background-color: #ffffff;
+}
+
+.option-label:hover .custom-checkbox {
+  border-color: #888888;
+}
+
+.option-label input[type="checkbox"]:checked + .custom-checkbox {
+  border-color: #000000;
+  background-color: #000000;
+}
+
+.option-label input[type="checkbox"]:checked + .custom-checkbox::after {
+  content: "✓";
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* ── Call Button ── */
+#call-btn {
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 20px 24px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+#call-btn:hover:not(:disabled) {
+  opacity: 0.75;
+}
+
+#call-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Action Buttons Group (Add to Cart) ── */
+.action-buttons-group {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+#add-to-cart-btn {
+  width: 100%;
+  background-color: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  padding: 16px 24px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+#add-to-cart-btn:hover:not(:disabled) {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+#add-to-cart-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Cart Container ── */
+.cart-container {
+  width: 100%;
+  background-color: #fbfbfb;
+  border: 2px solid #eaeaea;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.cart-container h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 8px;
+  text-align: left;
+}
+
+#cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.cart-item-base {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #111111;
+}
+
+.cart-item-complementos {
+  font-size: 0.8rem;
+  color: #666666;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: #c0392b;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.cart-item-remove:hover {
+  background-color: #fde8e8;
+}
+
+/* ── Call Status ── */
+#call-status {
+  font-size: 0.95rem;
+  color: #222222;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ── Concluded State Screen ── */
+.concluded-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  background-color: #ffffff;
+  border: 2px solid #2e7d32;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(46, 125, 50, 0.08);
+  margin-top: 16px;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.concluded-container h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2e7d32;
+  margin-bottom: 8px;
+}
+
+.concluded-container p {
+  font-size: 1rem;
+  color: #555555;
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+/* Success Checkmark Circle */
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #e8f5e9;
+  border: 4px solid #2e7d32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.check-icon {
+  font-size: 2.8rem;
+  color: #2e7d32;
+  font-weight: bold;
+  line-height: 1;
+  user-select: none;
+  margin-top: -2px;
+}
+
+/* New Order Button */
+#new-order-btn {
+  width: 100%;
+  background-color: #2e7d32;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 24px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+}
+
+#new-order-btn:hover {
+  background-color: #1b5e20;
+}
+
+#new-order-btn:active {
+  transform: scale(0.98);
+}
+
+/* Keyframes for premium animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Error Message ── */
+.error-msg {
+  color: #c0392b;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ── Responsive (mobile-first, wider screens) ── */
+@media (min-width: 600px) {
+  #entry-screen h1 {
+    font-size: 1.6rem;
+  }
+
+  #call-btn {
+    font-size: 1.75rem;
+    padding: 24px 32px;
+  }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <title>PAV Service — Admin</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header>
+    <img src="assets/logo.png" alt="PAV Service">
+  </header>
+
+  <main>
+    <section id="login-screen" style="display: none;">
+      <h1>Painel Administrativo</h1>
+      <form id="login-form">
+        <input type="password" id="password-input" placeholder="Senha">
+        <p id="login-error" class="error-msg" style="display: none;"></p>
+        <button type="submit">Entrar</button>
+      </form>
+    </section>
+
+    <section id="dashboard" style="display: none;">
+      <nav class="tab-nav">
+        <button class="tab-btn tab-btn--active" data-tab="pedidos">Pedidos</button>
+        <button class="tab-btn" data-tab="entregues">Entregues</button>
+      </nav>
+
+      <div id="tab-pedidos">
+        <div id="cards-container"></div>
+        <p id="empty-state" style="display: none;">Nenhum chamado pendente.</p>
+      </div>
+
+      <div id="tab-entregues" style="display: none;">
+        <div id="history-container"></div>
+        <p id="history-empty-state" style="display: none;">Nenhum pedido entregue ainda.</p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

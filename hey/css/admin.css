@@ -1,0 +1,450 @@
+/* PAV Service — admin.css */
+/* Requisitos: 5.2, 7.1, 7.3 */
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Body ── */
+body {
+  font-family: sans-serif;
+  background-color: #ffffff;
+  color: #111111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ── Header / Logo ── */
+header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 16px;
+}
+
+header img {
+  max-width: 80px;
+  height: auto;
+  display: block;
+}
+
+/* ── Main ── */
+main {
+  width: 100%;
+  max-width: 560px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+/* ── Login Screen ── */
+#login-screen {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+#login-screen h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  color: #111111;
+}
+
+/* ── Login Form ── */
+#login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Password Input ── */
+#password-input {
+  width: 100%;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#password-input:focus {
+  border-color: #444444;
+}
+
+/* ── Login Submit Button ── */
+#login-form button[type="submit"] {
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+#login-form button[type="submit"]:hover {
+  opacity: 0.75;
+}
+
+/* ── Tab Navigation ── */
+.tab-nav {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #888888;
+  cursor: pointer;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn:hover {
+  color: #111111;
+}
+
+.tab-btn--active {
+  color: #111111;
+  border-bottom-color: #000000;
+}
+
+/* ── Card Entregue ── */
+.card--entregue {
+  border-color: #cccccc;
+  background-color: #fafafa;
+  box-shadow: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card--entregue .card-usuario {
+  color: #444444;
+}
+
+/* ── Badge Entregue ── */
+.card-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2e7d32;
+  background-color: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-radius: 12px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+/* ── Status Actions inside Delivered Card ── */
+.card-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+}
+
+.excluir-btn {
+  background-color: transparent;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.excluir-btn:hover {
+  background-color: #c0392b;
+  color: #ffffff;
+}
+
+/* ── Dashboard ── */
+#dashboard {
+  width: 100%;
+  padding: 8px 0;
+}
+
+#dashboard h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ── Cards Container ── */
+#cards-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Card ── */
+.card {
+  width: 100%;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Card — User Name ── */
+.card-usuario {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #111111;
+}
+
+/* ── Card — Timestamp ── */
+.card-hora {
+  font-size: 0.85rem;
+  color: #777777;
+}
+
+/* ── Card Actions ── */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+/* ── Em Produção Button (OFF — outline) ── */
+.producao-btn--off {
+  background-color: transparent;
+  color: #2e7d32;
+  border: 2px solid #2e7d32;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.producao-btn--off:hover {
+  background-color: #e8f5e9;
+}
+
+/* ── Em Produção Button (ON — filled) ── */
+.producao-btn--on {
+  background-color: #2e7d32;
+  color: #ffffff;
+  border: 2px solid #2e7d32;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.producao-btn--on:hover {
+  opacity: 0.8;
+}
+
+/* ── Concluir Button ── */
+.concluir-btn {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.concluir-btn:hover {
+  opacity: 0.75;
+}
+
+/* ── Card Timer ── */
+.card-timer {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444444;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Card Warning (15–19 min) ── */
+.card--warning {
+  background-color: #fffbe6;
+  border-color: #f0c040;
+}
+
+/* ── Card Danger (20+ min) ── */
+.card--danger {
+  background-color: #fff0f0;
+  border-color: #e53935;
+}
+
+/* ── Card Order Details ── */
+.card-pedido-detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #e0e0e0;
+  width: 100%;
+}
+
+.itens-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #555555;
+  border-radius: 10px;
+  padding: 2px 8px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.card-item-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  background-color: #fafafa;
+  border-radius: 6px;
+  border-left: 3px solid #000000;
+}
+
+.card-item-row + .card-item-row {
+  margin-top: 2px;
+}
+
+.item-number {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #000000;
+  margin-right: 4px;
+}
+
+.detalhes-sabor,
+.detalhes-complementos {
+  font-size: 0.9rem;
+  color: #555555;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.detalhes-sabor strong,
+.detalhes-complementos strong {
+  color: #111111;
+  font-weight: 700;
+}
+
+/* ── Badges ── */
+.badge-sabor {
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.badge-complemento {
+  background-color: #f5f5f5;
+  color: #333333;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.badge-complemento--none {
+  background-color: transparent;
+  color: #888888;
+  border-style: dashed;
+  font-weight: normal;
+}
+
+/* ── Card Error ── */
+.card-error {
+  color: #c0392b;
+  font-size: 0.85rem;
+}
+
+/* ── Empty State ── */
+#empty-state {
+  text-align: center;
+  color: #888888;
+  font-style: italic;
+  margin-top: 32px;
+  font-size: 1rem;
+}
+
+/* ── Error Message ── */
+.error-msg {
+  color: #c0392b;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ── Responsive ── */
+@media (min-width: 600px) {
+  #login-screen h1,
+  #dashboard h1 {
+    font-size: 1.6rem;
+  }
+
+  .card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .card-actions {
+    align-self: center;
+    margin-top: 0;
+  }
+}

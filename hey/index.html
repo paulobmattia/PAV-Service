@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <title>PAV Service</title>
+  <link rel="stylesheet" href="css/client.css">
+</head>
+<body>
+  <header>
+    <img src="assets/logo.png" alt="PAV Service">
+  </header>
+
+  <main>
+    <section id="entry-screen" style="display: none;">
+      <h1>Bem-vindo ao PAV Service</h1>
+      <input type="text" id="name-input" placeholder="Seu nome ou identificador">
+      <p id="entry-error" class="error-msg" style="display: none;"></p>
+      <button id="name-submit">Entrar</button>
+    </section>
+
+    <section id="client-interface" style="display: none;">
+      <p id="user-greeting"></p>
+
+      <fieldset id="options-fieldset" class="options-container">
+        <legend class="section-title">Escolha o Sabor Base:</legend>
+        <div class="radio-group">
+          <label class="option-label">
+            <input type="radio" name="sabor-base" value="Carne" checked>
+            <span class="custom-radio"></span>
+            Carne
+          </label>
+          <label class="option-label">
+            <input type="radio" name="sabor-base" value="Presunto e queijo">
+            <span class="custom-radio"></span>
+            Presunto e queijo
+          </label>
+          <label class="option-label">
+            <input type="radio" name="sabor-base" value="Queijo">
+            <span class="custom-radio"></span>
+            Queijo
+          </label>
+          <label class="option-label">
+            <input type="radio" name="sabor-base" value="Frango com requeijão">
+            <span class="custom-radio"></span>
+            Frango com requeijão
+          </label>
+        </div>
+
+        <legend class="section-title">Adicione Complementos (opcional):</legend>
+        <div class="checkbox-group">
+          <label class="option-label">
+            <input type="checkbox" name="complemento" value="Mussarela">
+            <span class="custom-checkbox"></span>
+            Mussarela
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="complemento" value="Bacon">
+            <span class="custom-checkbox"></span>
+            Bacon
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="complemento" value="Milho">
+            <span class="custom-checkbox"></span>
+            Milho
+          </label>
+          <label class="option-label">
+            <input type="checkbox" name="complemento" value="Cebola">
+            <span class="custom-checkbox"></span>
+            Cebola
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="action-buttons-group">
+        <button id="add-to-cart-btn">Adicionar ao Pedido</button>
+      </div>
+
+      <div id="cart-section" class="cart-container" style="display: none;">
+        <h3>Itens no seu Pedido:</h3>
+        <div id="cart-items"></div>
+        <button id="call-btn">Fazer Pedido (0 itens)</button>
+      </div>
+
+      <p id="call-status"></p>
+
+      <div id="concluded-state" class="concluded-container" style="display: none;">
+        <div class="success-checkmark">
+          <span class="check-icon">✓</span>
+        </div>
+        <h2>Pedido Entregue!</h2>
+        <p>Seu pedido foi finalizado com sucesso.</p>
+        <button id="new-order-btn">Fazer Novo Pedido</button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/client.js"></script>
+</body>
+</html>
