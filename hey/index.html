@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
   <title>PAV Service</title>
-  <link rel="icon" type="image/png" href="/bell.png">
   <link rel="stylesheet" href="css/client.css">
 </head>
 <body>
@@ -25,54 +24,35 @@
       <p id="user-greeting"></p>
 
       <fieldset id="options-fieldset" class="options-container">
-        <legend class="section-title">Escolha o Sabor Base:</legend>
+        <legend class="section-title">Escolha o Sabor:</legend>
         <div class="radio-group">
           <label class="option-label">
-            <input type="radio" name="sabor-base" value="Carne" checked>
-            <span class="custom-radio"></span>
-            Carne
-          </label>
-          <label class="option-label">
-            <input type="radio" name="sabor-base" value="Presunto e queijo">
-            <span class="custom-radio"></span>
-            Presunto e queijo
-          </label>
-          <label class="option-label">
-            <input type="radio" name="sabor-base" value="Queijo">
+            <input type="radio" name="sabor-base" value="Queijo" checked>
             <span class="custom-radio"></span>
             Queijo
           </label>
           <label class="option-label">
-            <input type="radio" name="sabor-base" value="Frango com requeijão">
+            <input type="radio" name="sabor-base" value="Carne e queijo">
             <span class="custom-radio"></span>
-            Frango com requeijão
-          </label>
-        </div>
-
-        <legend class="section-title">Adicione Complementos (opcional):</legend>
-        <div class="checkbox-group">
-          <label class="option-label">
-            <input type="checkbox" name="complemento" value="Mussarela">
-            <span class="custom-checkbox"></span>
-            Mussarela
+            Carne e queijo
           </label>
           <label class="option-label">
-            <input type="checkbox" name="complemento" value="Bacon">
-            <span class="custom-checkbox"></span>
-            Bacon
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="complemento" value="Milho">
-            <span class="custom-checkbox"></span>
-            Milho
-          </label>
-          <label class="option-label">
-            <input type="checkbox" name="complemento" value="Cebola">
-            <span class="custom-checkbox"></span>
-            Cebola
+            <input type="radio" name="sabor-base" value="Queijo e presunto">
+            <span class="custom-radio"></span>
+            Queijo e presunto
           </label>
         </div>
       </fieldset>
+
+      <div class="observation-container">
+        <label for="observation-input" class="section-title">Observação (opcional):</label>
+        <textarea
+          id="observation-input"
+          placeholder="Ex: sem sal, bem passado, ponto da carne..."
+          maxlength="200"
+          rows="3"
+        ></textarea>
+      </div>
 
       <div class="action-buttons-group">
         <button id="add-to-cart-btn">Adicionar ao Pedido</button>
