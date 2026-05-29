@@ -33,13 +33,13 @@ export function showClientInterface(name) {
   document.getElementById('entry-screen').style.display = 'none';
   document.getElementById('client-interface').style.display = '';
   document.getElementById('user-greeting').textContent = `Olá, ${name}!`;
-  
+
   // Bloqueia interações enquanto verifica se há pedido ativo no Firebase
   toggleInteractiveState(false);
   document.getElementById('call-status').textContent = 'Verificando...';
 }
 
-// ─── Submissão do nome ──────────────────────────────────────────────────────────
+// ─── Submissão do nome ────────────────────────────────────────────────────────
 
 /**
  * Exibe uma mensagem de erro na Tela de Entrada e mantém o foco no input.
@@ -66,7 +66,7 @@ export function handleNameSubmit(name) {
   restoreActiveChamado(name.trim());
 }
 
-// ─── Gerenciamento do Carrinho de Compras ──────────────────────────────────────
+// ─── Gerenciamento do Carrinho de Compras ─────────────────────────────────────
 
 /**
  * Renderiza a lista de lanches do carrinho na tela e atualiza o botão de pedido.
@@ -75,38 +75,36 @@ export function renderCart() {
   const cartSection = document.getElementById('cart-section');
   const cartItems = document.getElementById('cart-items');
   const callBtn = document.getElementById('call-btn');
-  
+
   cartItems.innerHTML = '';
-  
+
   if (cart.length === 0) {
     cartSection.style.display = 'none';
     return;
   }
-  
+
   cartSection.style.display = 'block';
   callBtn.textContent = `Fazer Pedido (${cart.length} ${cart.length === 1 ? 'item' : 'itens'})`;
-  
+
   cart.forEach((item, index) => {
     const cartItem = document.createElement('div');
     cartItem.className = 'cart-item';
-    
-    const compsText = item.complementos && item.complementos.length > 0
-      ? `+ ${item.complementos.join(', ')}`
-      : 'Sem complementos';
-      
+
+    const obsText = item.observacao ? `Obs: ${item.observacao}` : '';
+
     cartItem.innerHTML = `
       <div class="cart-item-info">
         <span class="cart-item-base">${item.sabor_base}</span>
-        <span class="cart-item-complementos">${compsText}</span>
+        ${obsText ? `<span class="cart-item-complementos">${obsText}</span>` : ''}
       </div>
       <button class="cart-item-remove" data-index="${index}">Remover</button>
     `;
-    
+
     cartItem.querySelector('.cart-item-remove').addEventListener('click', () => {
       cart.splice(index, 1);
       renderCart();
     });
-    
+
     cartItems.appendChild(cartItem);
   });
 }
@@ -116,15 +114,22 @@ export function renderCart() {
  * @param {boolean} enabled
  */
 export function toggleInteractiveState(enabled) {
+  // Controla o textarea de observação (está fora do fieldset)
+  const obsInput = document.getElementById('observation-input');
+  if (obsInput) {
+    obsInput.disabled = !enabled;
+    obsInput.style.opacity = enabled ? '' : '0.5';
+  }
+
   document.getElementById('options-fieldset').disabled = !enabled;
-  
+
   const addToCartBtn = document.getElementById('add-to-cart-btn');
   addToCartBtn.disabled = !enabled;
   addToCartBtn.style.display = enabled ? '' : 'none';
-  
+
   const callBtn = document.getElementById('call-btn');
   callBtn.disabled = !enabled || cart.length === 0;
-  
+
   // Ocultar/Exibir botões de remover itens do carrinho
   const removeBtns = document.querySelectorAll('.cart-item-remove');
   removeBtns.forEach(btn => {
@@ -132,19 +137,24 @@ export function toggleInteractiveState(enabled) {
   });
 }
 
-// ─── Estados da Interface e Listeners do Firebase ─────────────────────────────
+// ─── Estados da Interface e Listeners do Firebase ────────────────────────────
 
 /** Reabilita o botão, limpa o status e cancela o listener ativo. */
 export function resetUI() {
   cart = [];
   renderCart();
-  
+
   toggleInteractiveState(true);
-  
+
+  // Reexibe o container de observação caso tenha sido ocultado
+  const obsContainer = document.querySelector('.observation-container');
+  if (obsContainer) obsContainer.style.display = '';
+
   const callStatus = document.getElementById('call-status');
   callStatus.style.display = '';
   callStatus.textContent = '';
-  
+
+  document.getElementById('options-fieldset').style.display = '';
   document.getElementById('concluded-state').style.display = 'none';
 
   if (activeUnsubscribe) {
@@ -153,12 +163,17 @@ export function resetUI() {
   }
 }
 
-/** Exibe a tela de finalização de sucesso e oculta o formulário e status normais */
+/** Exibe a tela de finalização de sucesso e oculta o formulário e status normais. */
 export function showConcludedState() {
   document.getElementById('options-fieldset').style.display = 'none';
   document.getElementById('add-to-cart-btn').style.display = 'none';
   document.getElementById('cart-section').style.display = 'none';
   document.getElementById('call-status').style.display = 'none';
+
+  // Oculta o container de observação (está fora do fieldset)
+  const obsContainer = document.querySelector('.observation-container');
+  if (obsContainer) obsContainer.style.display = 'none';
+
   document.getElementById('concluded-state').style.display = 'flex';
 }
 
@@ -240,7 +255,6 @@ export async function restoreActiveChamado(userName) {
     equalTo(userName)
   );
 
-  const callBtn = document.getElementById('call-btn');
   const callStatus = document.getElementById('call-status');
 
   try {
@@ -254,15 +268,15 @@ export async function restoreActiveChamado(userName) {
       if (active) {
         const [id, chamadoData] = active;
         const chamadoRef = ref(db, 'chamados/' + id);
-        
+
         // Restaura a lista de itens para exibição em modo somente-leitura
         cart = chamadoData.itens || [];
         if (!chamadoData.itens && chamadoData.sabor_base) {
           // Fallback para chamados legados
-          cart = [{ sabor_base: chamadoData.sabor_base, complementos: chamadoData.complementos || [] }];
+          cart = [{ sabor_base: chamadoData.sabor_base, observacao: '' }];
         }
         renderCart();
-        
+
         toggleInteractiveState(false);
         listenChamado(chamadoRef);
         return; // listenChamado assume o controle
@@ -294,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showEntryScreen();
   }
 
-  // ── Submissão do nome (botão e Enter no form) ──
+  // ── Submissão do nome (botão e Enter no input) ──
   const nameInput = document.getElementById('name-input');
   const nameSubmit = document.getElementById('name-submit');
 
@@ -313,26 +327,26 @@ document.addEventListener('DOMContentLoaded', () => {
   addToCartBtn.addEventListener('click', () => {
     // Obter sabor base
     const saborBaseRadio = document.querySelector('input[name="sabor-base"]:checked');
-    const saborBase = saborBaseRadio ? saborBaseRadio.value : 'Carne';
+    const saborBase = saborBaseRadio ? saborBaseRadio.value : 'Queijo';
 
-    // Obter complementos
-    const complementosCheckboxes = document.querySelectorAll('input[name="complemento"]:checked');
-    const complementos = Array.from(complementosCheckboxes).map(cb => cb.value);
+    // Obter observação
+    const observacaoInput = document.getElementById('observation-input');
+    const observacao = observacaoInput ? observacaoInput.value.trim() : '';
 
-    // Salvar no estado
+    // Salvar no carrinho
     cart.push({
       sabor_base: saborBase,
-      complementos: complementos
+      observacao: observacao
     });
 
     // Atualizar visual
     renderCart();
-    toggleInteractiveState(true); // Garante que o botão de enviar pedido atualize o estado de habilitado
+    toggleInteractiveState(true);
 
-    // Limpar seleções para o próximo item
-    complementosCheckboxes.forEach(cb => cb.checked = false);
-    const carneRadio = document.querySelector('input[name="sabor-base"][value="Carne"]');
-    if (carneRadio) carneRadio.checked = true;
+    // Limpar campos para o próximo item
+    if (observacaoInput) observacaoInput.value = '';
+    const queijoRadio = document.querySelector('input[name="sabor-base"][value="Queijo"]');
+    if (queijoRadio) queijoRadio.checked = true;
   });
 
   // ── Botão de enviar pedido ──

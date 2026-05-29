@@ -109,7 +109,7 @@ export function listenChamados() {
 
 /**
  * Gera o HTML de detalhes do pedido a partir do chamado.
- * Suporta o formato novo (itens: []) e o legado (sabor_base + complementos na raiz).
+ * Suporta o formato novo (itens: []) e o legado (sabor_base na raiz).
  * @param {object} chamado
  * @returns {string} HTML
  */
@@ -119,24 +119,22 @@ export function buildOrderDetailsHtml(chamado) {
   if (chamado.itens && (Array.isArray(chamado.itens) || typeof chamado.itens === 'object')) {
     itens = Array.isArray(chamado.itens) ? chamado.itens : Object.values(chamado.itens);
   } else if (chamado.sabor_base) {
-    // Formato legado: sabor_base e complementos na raiz
-    itens = [{ sabor_base: chamado.sabor_base, complementos: chamado.complementos || [] }];
+    // Formato legado: sabor_base na raiz
+    itens = [{ sabor_base: chamado.sabor_base, observacao: '' }];
   }
 
   if (itens.length === 0) return '';
 
   const itensHtml = itens.map((item, i) => {
     const saborHtml = `<span class="badge-sabor">${item.sabor_base}</span>`;
-    const compsArr = item.complementos || [];
-    const compsHtml = compsArr.length > 0
-      ? compsArr.map(c => `<span class="badge-complemento">+ ${c}</span>`).join(' ')
-      : '<span class="badge-complemento badge-complemento--none">Sem complementos</span>';
-
     const itemLabel = itens.length > 1 ? `<span class="item-number">${i + 1}.</span> ` : '';
+    const obsHtml = item.observacao
+      ? `<div class="detalhes-obs"><strong>Obs:</strong> ${item.observacao}</div>`
+      : '';
 
     return `<div class="card-item-row">
       <div class="detalhes-sabor">${itemLabel}<strong>Base:</strong> ${saborHtml}</div>
-      <div class="detalhes-complementos"><strong>Complementos:</strong> ${compsHtml}</div>
+      ${obsHtml}
     </div>`;
   }).join('');
 
@@ -277,7 +275,7 @@ function _showCardError(id, msg) {
 /**
  * Inicia o cronômetro para um card em produção.
  * @param {string} id
- * @param {number} timestamp - timestamp de criação do chamado (ms)
+ * @param {number} timestamp - timestamp de início da produção (ms)
  */
 export function startTimer(id, timestamp) {
   const intervalId = setInterval(() => {
